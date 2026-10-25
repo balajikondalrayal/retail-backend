@@ -1,0 +1,34 @@
+[
+  {
+    "id": 101,
+    "name": "Wireless Mechanical Keyboard",
+    "price": 89.99,
+    "category": "groceries",
+    "discount": 5,
+    "inStock": true
+  },
+  {
+    "id": 102,
+    "name": "Ergonomic Wireless Mouse",
+    "price": 45.50,
+    "category": "Electronics",
+    "discount": 10,
+    "inStock": true
+  },
+  {
+    "id": 103,
+    "name": "UltraWide Gaming Monitor 34\"",
+    "price": 349.99,
+    "category": "Electronics",
+    "discount": 10,
+    "inStock": false
+  },
+  {
+    "id": 104,
+    "name": "UltraWide Gaming Monitor 341\"",
+    "price": 349.99,
+    "category": "Electronics",
+    "discount": 10,
+    "inStock": false
+  }
+]

@@ -1,0 +1,6 @@
+GET http://localhost:3000/dashboard
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiamFuZWRvZSIsImlhdCI6MTc5MjgzMTM5MSwiZXhwIjoxNzkyODMxNDA2fQ.mDmV3r6iBpGtlni6BJbPRHdQBf7np4EEbePHVzI0LWo
+
+###
+
+GET http://localhost:5000/products?field=price&order=asc&discount=50

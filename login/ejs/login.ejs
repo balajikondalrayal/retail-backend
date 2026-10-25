@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="login-form" action="/login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+    <p id="message" role="status"></p>
+    <script>
+        const form = document.querySelector("#login-form")
+        const message = document.querySelector("#message")
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault()
+            message.textContent = "Signing in..."
+
+            try {
+                const loginResponse = await fetch(form.action, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(Object.fromEntries(new FormData(form)))
+                })
+                const loginResult = await loginResponse.json()
+
+                if (!loginResponse.ok) {
+                    throw new Error(loginResult.error || "Login failed")
+                }
+
+                const sessionResponse = await fetch("http://localhost:3000/dashboard/session", {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { Authorization: `Bearer ${loginResult.token}` }
+                })
+
+                if (!sessionResponse.ok) {
+                    throw new Error("Could not start dashboard session")
+                }
+
+                window.location.assign("http://localhost:3000/dashboard")
+            } catch (error) {
+                message.textContent = error.message
+            }
+        })
+    </script>
+</body>
+</html>

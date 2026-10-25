@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <p id="dashboard-message" role="status">Loading dashboard...</p>
+    <script>
+        const message = document.querySelector("#dashboard-message")
+        const token = sessionStorage.getItem("accessToken")
+
+        if (!token) {
+            window.location.replace("/login")
+        } else {
+            fetch("http://localhost:3000/dashboard", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then(async (response) => {
+                    const body = await response.text()
+                    if (!response.ok) {
+                        throw new Error(body || "Could not load dashboard")
+                    }
+                    return body
+                })
+                .then((body) => {
+                    message.textContent = body
+                })
+                .catch((error) => {
+                    sessionStorage.removeItem("accessToken")
+                    message.textContent = error.message
+                })
+        }
+    </script>
+</body>
+</html>
